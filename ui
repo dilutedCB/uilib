@@ -69,28 +69,34 @@ local library = {
     fileext = startupArgs.fileext or '.txt';
 }
 
-
-local       ['Accent']                    = fromrgb(103,89,179);
-local       ['Background']                = fromrgb(22,22,31);
-local       ['Border']                    = fromrgb(0,0,0);
-local       ['Border 1']                  = fromrgb(50,50,50);
-local       ['Border 2']                  = fromrgb(24,25,37);
-local       ['Border 3']                  = fromrgb(10,10,10);
-local       ['Primary Text']              = fromrgb(235,235,235);
-local       ['Group Background']          = fromrgb(24,25,37);
-local       ['Selected Tab Background']   = fromrgb(24,25,37);
-local       ['Unselected Tab Background'] = fromrgb(22,22,31);
-local       ['Selected Tab Text']         = fromrgb(245,245,245);
-local       ['Unselected Tab Text']       = fromrgb(145,145,145);
-local       ['Section Background']        = fromrgb(22,22,31);
-local       ['Option Text 1']             = fromrgb(245,245,245);
-local       ['Option Text 2']             = fromrgb(195,195,195);
-local       ['Option Text 3']             = fromrgb(145,145,145);
-local       ['Option Border 1']           = fromrgb(50,50,50);
-local       ['Option Border 2']           = fromrgb(0,0,0);
-local       ['Option Background']         = fromrgb(24,25,37);
-local       ["Risky Text"]                = fromrgb(175, 21, 21);
-local       ["Risky Text Enabled"]        = fromrgb(255, 41, 41);
+library.themes = {
+    {
+        name = 'Default',
+        theme = {
+            ['Accent']                    = fromrgb(103,89,179);
+            ['Background']                = fromrgb(22,22,31);
+            ['Border']                    = fromrgb(0,0,0);
+            ['Border 1']                  = fromrgb(50,50,50);
+            ['Border 2']                  = fromrgb(24,25,37);
+            ['Border 3']                  = fromrgb(10,10,10);
+            ['Primary Text']              = fromrgb(235,235,235);
+            ['Group Background']          = fromrgb(24,25,37);
+            ['Selected Tab Background']   = fromrgb(24,25,37);
+            ['Unselected Tab Background'] = fromrgb(22,22,31);
+            ['Selected Tab Text']         = fromrgb(245,245,245);
+            ['Unselected Tab Text']       = fromrgb(145,145,145);
+            ['Section Background']        = fromrgb(22,22,31);
+            ['Option Text 1']             = fromrgb(245,245,245);
+            ['Option Text 2']             = fromrgb(195,195,195);
+            ['Option Text 3']             = fromrgb(145,145,145);
+            ['Option Border 1']           = fromrgb(50,50,50);
+            ['Option Border 2']           = fromrgb(0,0,0);
+            ['Option Background']         = fromrgb(24,25,37);
+            ["Risky Text"]                = fromrgb(175, 21, 21);
+            ["Risky Text Enabled"]        = fromrgb(255, 41, 41);
+        }
+    }
+}
 
 local blacklistedKeys = {
     Enum.KeyCode.Unknown,
@@ -4612,29 +4618,6 @@ function library:CreateSettingsTab(menu)
     end})
     mainSection:AddSlider({text = 'Custom X', flag = 'watermark_x', suffix = '%', value = 6.1, min = 0, max = 100, increment = .1});
     mainSection:AddSlider({text = 'Custom Y', flag = 'watermark_y', suffix = '%', value = 1.2, min = 0, max = 100, increment = .1});
-
-    local themeStrings = {};
-    for _,v in next, library.themes do
-        table.insert(themeStrings, v.name)
-    end
-    local themeSection = settingsTab:AddSection('Theme', 1);
-    local setByPreset = false
-
-    themeSection:AddList({text = 'Presets', flag = 'preset_theme', values = themeStrings, callback = function(newTheme)
-        setByPreset = true
-        for _,v in next, library.themes do
-            if v.name == newTheme then
-                for x, d in pairs(library.options) do
-                    if v.theme[tostring(x)] ~= nil then
-                        d:SetColor(v.theme[tostring(x)])
-                    end
-                end
-                library:SetTheme(v.theme)
-                break
-            end
-        end
-        setByPreset = false
-    end}):Select('Default');
 
     return settingsTab;
 end
