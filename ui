@@ -1,11 +1,3 @@
---[[
-Octohook ui lib informant version
-Developed by liam#4567
-Edited by xz#1111
-]]
-
--- // Load
-
 local startupArgs = ({...})[1] or {}
 
 if getgenv().library ~= nil then
@@ -4387,7 +4379,7 @@ function library:init()
         self.watermark = {
             objects = {};
             text = {
-                {"informant.wtf", true},
+                {"pure.VIP", true},
                 {"V"..getgenv().Config.Version, true},
                 {getgenv().luaguardvars.DiscordName, true},
                 {'0 fps', true},
@@ -4624,28 +4616,7 @@ function library:CreateSettingsTab(menu)
     mainSection:AddSlider({text = 'Custom X', flag = 'watermark_x', suffix = '%', value = 6.1, min = 0, max = 100, increment = .1});
     mainSection:AddSlider({text = 'Custom Y', flag = 'watermark_y', suffix = '%', value = 1.2, min = 0, max = 100, increment = .1});
 
-    local themeStrings = {};
-    for _,v in next, library.themes do
-        table.insert(themeStrings, v.name)
-    end
-    local themeSection = settingsTab:AddSection('Theme', 1);
-    local setByPreset = false
 
-    themeSection:AddList({text = 'Presets', flag = 'preset_theme', values = themeStrings, callback = function(newTheme)
-        setByPreset = true
-        for _,v in next, library.themes do
-            if v.name == newTheme then
-                for x, d in pairs(library.options) do
-                    if v.theme[tostring(x)] ~= nil then
-                        d:SetColor(v.theme[tostring(x)])
-                    end
-                end
-                library:SetTheme(v.theme)
-                break
-            end
-        end
-        setByPreset = false
-    end}):Select('Default');
 
     return settingsTab;
 end
