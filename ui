@@ -1,3 +1,9 @@
+--[[
+Octohook ui lib informant version
+Developed by liam#4567
+Edited by xz#1111
+]]
+
 -- // Load
 
 local startupArgs = ({...})[1] or {}
@@ -97,6 +103,7 @@ library.themes = {
         }
     }
 }
+ 
 
 local blacklistedKeys = {
     Enum.KeyCode.Unknown,
@@ -4380,7 +4387,7 @@ function library:init()
         self.watermark = {
             objects = {};
             text = {
-                {"pure.vip", true},
+                {"informant.wtf", true},
                 {"V"..getgenv().Config.Version, true},
                 {getgenv().luaguardvars.DiscordName, true},
                 {'0 fps', true},
@@ -4509,9 +4516,7 @@ function library:CreateSettingsTab(menu)
     local settingsTab = menu:AddTab('Settings', 999);
     local configSection = settingsTab:AddSection('Config', 2);
     local mainSection = settingsTab:AddSection('Main', 1);
-
-
-
+    
     configSection:AddBox({text = 'Config Name', flag = 'configinput'})
     configSection:AddList({text = 'Config', flag = 'selectedconfig'})
 
