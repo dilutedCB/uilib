@@ -463,7 +463,7 @@ function library:init()
     end
 
     function self:LoadConfig(name)
-        local cfg = readfile(self.cheatname..'/'..self.gamename..'/configs/'..name..self.fileext);
+        local cfg = self:GetConfig(name)
         if not cfg then
             return
         end
@@ -490,6 +490,7 @@ function library:init()
                 end
             end
             readfile(self.cheatname..'/'..self.gamename..'/configs/'..name..self.fileext);
+            setByConfig = false
         end)
 
     end
