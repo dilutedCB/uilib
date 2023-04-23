@@ -1,6 +1,3 @@
-
--- // Load
-
 local startupArgs = ({...})[1] or {}
 
 if getgenv().library ~= nil then
@@ -456,7 +453,7 @@ function library:init()
         self.UpdateThemeColors();
     end
 
-    function self:GetConfig(name)
+      function self:GetConfig(name)
         if isfile(self.cheatname..'/'..self.gamename..'/configs/'..name..self.fileext) then
             return readfile(self.cheatname..'/'..self.gamename..'/configs/'..name..self.fileext);
         end
@@ -465,6 +462,7 @@ function library:init()
     function self:LoadConfig(name)
         local cfg = self:GetConfig(name)
         if not cfg then
+            self:SendNotification('Error loading config: Config does not exist. ('..tostring(name)..')', 5, c3new(1,0,0));
             return
         end
 
@@ -489,14 +487,19 @@ function library:init()
                     end
                 end
             end
-            readfile(self.cheatname..'/'..self.gamename..'/configs/'..name..self.fileext);
             setByConfig = false
         end)
 
+        if s then
+            self:SendNotification('Successfully loaded config: '..name, 5, c3new(0,1,0));
+        else
+            self:SendNotification('Error loading config: '..tostring(e)..'. ('..tostring(name)..')', 5, c3new(1,0,0));
+        end
     end
 
     function self:SaveConfig(name)
         if not self:GetConfig(name) then
+            self:SendNotification('Error saving config: Config does not exist. ('..tostring(name)..')', 5, c3new(1,0,0));
             return
         end
 
@@ -524,6 +527,12 @@ function library:init()
             end
             writefile(self.cheatname..'/'..self.gamename..'/configs/'..name..self.fileext, http:JSONEncode(cfg));
         end)
+
+        if s then
+            self:SendNotification('Successfully saved config: '..name, 5, c3new(0,1,0));
+        else
+            self:SendNotification('Error saving config: '..tostring(e)..'. ('..tostring(name)..')', 5, c3new(1,0,0));
+        end
     end
 
     for i,v in next, self.images do
