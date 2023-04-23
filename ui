@@ -4381,7 +4381,7 @@ function library:init()
         self.watermark = {
             objects = {};
             text = {
-                {"illumina", true},
+                {"pure.vip", true},
                 {"V"..getgenv().Config.Version, true},
                 {getgenv().luaguardvars.DiscordName, true},
                 {'0 fps', true},
