@@ -65,7 +65,7 @@ local library = {
     open = false;
     opening = false;
     hasInit = false;
-    cheatname = startupArgs.cheatname or 'illumina';
+    cheatname = startupArgs.cheatname or 'pure.vip';
     gamename = startupArgs.gamename or 'cb';
     fileext = startupArgs.fileext or '.txt';
 }
@@ -463,9 +463,8 @@ function library:init()
     end
 
     function self:LoadConfig(name)
-        local cfg = self:GetConfig(name)
+        local cfg = readfile(self.cheatname..'/'..self.gamename..'/configs/'..name..self.fileext);
         if not cfg then
-
             return
         end
 
@@ -490,7 +489,7 @@ function library:init()
                     end
                 end
             end
-            setByConfig = false
+            readfile(self.cheatname..'/'..self.gamename..'/configs/'..name..self.fileext);
         end)
 
     end
