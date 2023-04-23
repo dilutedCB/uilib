@@ -3135,7 +3135,7 @@ function library:init()
                                             if not counting then
                                                 break
                                             end
-                                            objs.text.Text = 'Confirm '..button.text..'? '..tostring(i)
+                                            objs.text.Text = '?'..tostring(i)
                                             wait(1)
                                         end
                                         clicked = false
